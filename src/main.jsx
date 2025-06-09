@@ -13,8 +13,15 @@ const router = createBrowserRouter([
     path: '/',
     Component: HomeLayout,
     children: [
-      { index: true, Component: Home },
-      { path: '/addcoffee', Component: AddCoffee },
+      {
+        index: true,
+        Component: Home,
+        loader: () => fetch('http://localhost:3000/coffees'),
+      },
+      {
+        path: '/addcoffee',
+        Component: AddCoffee,
+      },
       { path: '/updatecoffee', Component: UpdateCoffee },
     ],
   },

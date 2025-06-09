@@ -1,4 +1,4 @@
-import React from 'react';
+import Swal from 'sweetalert2';
 
 const AddCoffee = () => {
   const HandleAddCoffee = (e) => {
@@ -28,6 +28,27 @@ const AddCoffee = () => {
     // };
 
     // console.log('New Coffee:', newCoffee);
+
+    // Send Coffee Data to the DB
+    fetch('http://localhost:3000/coffees', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(coffeeData),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log('Data after Adding Coffee: ', data);
+        if (data.insertedId) {
+          Swal.fire({
+            title: 'Added coffee successfully',
+            icon: 'success',
+            draggable: true,
+          });
+          //   e.target.reset();
+        }
+      });
   };
 
   return (
